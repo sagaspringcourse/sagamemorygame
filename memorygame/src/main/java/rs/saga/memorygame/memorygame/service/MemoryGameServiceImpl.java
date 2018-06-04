@@ -1,27 +1,64 @@
 package rs.saga.memorygame.memorygame.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import rs.saga.memorygame.memorygame.dao.MemoryGameRepository;
+import rs.saga.memorygame.memorygame.dao.PlayerRepository;
+import rs.saga.memorygame.memorygame.domain.MemoryGame;
+import rs.saga.memorygame.memorygame.domain.Player;
 import rs.saga.memorygame.memorygame.dto.MemoryGameDTO;
 import rs.saga.memorygame.memorygame.dto.MemoryGameDTOBuilder;
 import rs.saga.memorygame.memorygame.dto.PlayerDTO;
+import rs.saga.memorygame.memorygame.dto.PlayerDTOBuilder;
+
+import java.util.Optional;
 
 /**
  * @author <a href="mailto:slavisa.avramovic@escriba.de">avramovics</a>
  * @since 2018-06-04
  */
 @Service
+@Transactional
 public class MemoryGameServiceImpl implements IMemoryGameService {
+
+    private final MemoryGameRepository memoryGameRepository;
+    private PlayerRepository playerRepository;
+
+    @Autowired
+    public MemoryGameServiceImpl(MemoryGameRepository memoryGameRepository, PlayerRepository playerRepository) {
+        this.memoryGameRepository = memoryGameRepository;
+        this.playerRepository = playerRepository;
+    }
+
     @Override
     public Long createGame(Integer pairCount, String playerOne, String playerTwo) {
-        return 1l;
+        Player one = playerRepository.findByFirstName(playerOne);
+        Player two = playerRepository.findByFirstName(playerTwo);
+
+        MemoryGame game  = new MemoryGame();
+        game.setName("Memory Game");
+        game.setOne(one);
+        game.setTwo(two);
+        game.setPairCount(pairCount);
+        game = memoryGameRepository.save(game);
+
+        return game.getId();
     }
 
     @Override
     public MemoryGameDTO startGame(Long id) {
-        MemoryGameDTO game = MemoryGameDTOBuilder.getInstance().game();
-        game.setStatus("info");
-        game.setMessage("Game started. " + game.getOne().getPlayerName() + " VS. " + game.getTwo().getPlayerName());
-        return game;
+        Optional<MemoryGame> oGame = memoryGameRepository.findById(id);
+        MemoryGame game = oGame.get();
+
+        PlayerDTO first = PlayerDTOBuilder.getInstance().setPlayerName(game.getOne().getFirstName()).createPlayerDTO();
+        PlayerDTO second = PlayerDTOBuilder.getInstance().setPlayerName(game.getTwo().getFirstName()).createPlayerDTO();
+        MemoryGameDTO memoryGameDTO = MemoryGameDTOBuilder.getInstance().setOne(first).setTwo(second).setPairCount(game.getPairCount()).createMemoryGameDTO();
+
+
+        memoryGameDTO.setStatus("info");
+        memoryGameDTO.setMessage("Game started. " + memoryGameDTO.getOne().getPlayerName() + " VS. " + memoryGameDTO.getTwo().getPlayerName());
+        return memoryGameDTO;
     }
 
     @Override
