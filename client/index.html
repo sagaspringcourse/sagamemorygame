@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <!-- DEPENDENCIES (jQuery & jQuery-UI) -->
+    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.min.js"></script>
+
+    <!-- MEMORY PLUGIN (script & style) -->
+    <link href="css/jquery.memory-game.css" rel="stylesheet">
+    <link href="css/status.css" rel="stylesheet">
+    <script src="js/jquery.memory-game.js"></script>
+
+    <!-- STYLESHEET FOR THIS PARTICULAR EXAMPLE -->
+    <link rel="stylesheet" href="example-css/example.css" type="text/css">
+
+    <!-- EXAMPLE JAVASCRIPT CODE USING THE PLUGIN -->
+    <script>
+        $(function () {
+            $("#memory-game").memoryGame({
+                cards: [
+                    {
+                        imageUrl: 'example-images/ana.jpg',
+                        linkUrl: 'http://www.saga.rs',
+                        name: 'SAGA'
+                    },
+                    {
+                        imageUrl: 'example-images/manja.jpg',
+                        linkUrl: 'http://www.saga.rs',
+                        name: 'SAGA'
+                    },
+                    {
+                        imageUrl: 'example-images/milosb.jpg',
+                        linkUrl: 'http://en.wikipedia.org/wiki/Iguana',
+                        name: 'Iguana'
+                    },
+                    {
+                        imageUrl: 'example-images/nino.png',
+                        linkUrl: 'http://www.saga.rs',
+                        name: 'SAGA'
+                    },
+                    {
+                        imageUrl: 'example-images/rados.jpg',
+                        linkUrl: 'http://www.saga.rs',
+                        name: 'SAGA'
+                    }
+                    ,
+                    {
+                        imageUrl: 'example-images/radenko.jpg',
+                        linkUrl: 'http://www.saga.rs',
+                        name: 'SAGA'
+                    },
+                    {
+                        imageUrl: 'example-images/slave.jpg',
+                        linkUrl: 'http://www.saga.rs',
+                        name: 'SAGA'
+                    },
+                    {
+                        imageUrl: 'example-images/nikolam.jpg',
+                        linkUrl: 'http://www.saga.rs',
+                        name: 'SAGA'
+                    },
+                    {
+                        imageUrl: 'example-images/nikolas.jpg',
+                        linkUrl: 'http://www.saga.rs',
+                        name: 'SAGA'
+                    },
+                    {
+                        imageUrl: 'example-images/milosj.jpg',
+                        linkUrl: 'http://www.saga.rs',
+                        name: 'SAGA'
+                    }
+                ],
+                cardWidth: 100,
+                cardHeight: 100
+            });
+        });
+
+
+    </script>
+    <title>Memory Game jQuery plugin by Matteo Sisti Sette</title>
+    <style>
+        .code {
+            overflow: auto;
+            padding-left: 20px;
+            background-color: black;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+<div id="statusmsg" class="info">
+    <i class="fa fa-info-circle"></i>
+    SAGA Memory Game
+</div>
+<!-- MARKUP -->
+<div id="memory-game">
+
+</div>
+
+
+</body>
+</html>
