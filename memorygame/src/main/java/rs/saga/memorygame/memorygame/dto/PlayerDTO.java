@@ -9,6 +9,9 @@ public class PlayerDTO {
     private Integer pairCount;
     private String playerName;
 
+    public PlayerDTO() {
+    }
+
     public PlayerDTO(Integer pairCount, String playerName) {
         this.pairCount = pairCount;
         this.playerName = playerName;

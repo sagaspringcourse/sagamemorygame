@@ -11,6 +11,9 @@ public class MemoryGameDTO {
     private PlayerDTO one;
     private PlayerDTO two;
 
+    public MemoryGameDTO() {
+    }
+
     public MemoryGameDTO(Integer pairCount, PlayerDTO one, PlayerDTO two) {
         this.pairCount = pairCount;
         this.one = one;
