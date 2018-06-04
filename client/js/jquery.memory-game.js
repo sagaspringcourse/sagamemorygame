@@ -611,6 +611,8 @@ http://gitgub.com/matteosistisette/jquery-ui-memorygame
 		},
 		
 		closeCurrentCards: function() {
+            playerName = playerName === gameData.two.playerName ? gameData.one.playerName : gameData.two.playerName;
+            statusbar('warning', 'You\'ve missed ' + playerName + " plays...");
 			if (this.timeoutId) clearTimeout(this.timeoutId);
 			var that=this;
 			this.timeoutId=setTimeout(function(){that.actuallyCloseCurrentCards();}, that.option("flipBackTimeout"));

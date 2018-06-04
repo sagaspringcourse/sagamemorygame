@@ -44,7 +44,7 @@ public class MemoryGameControllerTest {
 
     @Test
     public void createGame() throws Exception {
-        when(memoryGameService.createGame(any(Integer.class), any(String.class), any(String.class))).thenReturn(MemoryGameDTOBuilder.getInstance().game());
+        when(memoryGameService.createGame(any(Integer.class), any(String.class), any(String.class))).thenReturn(1l);
 
         MockHttpServletRequestBuilder put = put(MemoryGameController.MGCONTROLLER)
                 .param("pairCount", "2")
@@ -57,9 +57,7 @@ public class MemoryGameControllerTest {
 
                 .andExpect(status().isCreated())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
-                .andExpect(jsonPath("$.pairCount", is(2)))
-                .andExpect(jsonPath("$.one.playerName", is("Ana")))
-                .andExpect(jsonPath("$.two.playerName", is("Manja")));
+                .andExpect(jsonPath("$", is(1)));
     }
 
     @Test

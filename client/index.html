@@ -17,8 +17,93 @@
 
     <!-- EXAMPLE JAVASCRIPT CODE USING THE PLUGIN -->
     <script>
+        var gameData;
+        var playerName;
+        var gameID;
+
+        function statusbar(style, msg) {
+            icon = '<i class="fa fa-info-circle"></i>'
+            if (style === 'info') {
+                icon = '<i class="fa fa-info-circle"></i>'
+            }
+            if (style === 'warning') {
+                icon = '<i class="fa fa-warning"></i>'
+            }
+            if (style === 'success') {
+                icon = '<i class="fa fa-check"></i>'
+            }
+            if (style === 'error') {
+                icon = '<i class="fa fa-times-circle"></i>'
+            }
+            $("#statusmsg").attr('class', style);
+            $("#statusmsg").html(icon + msg);
+        }
+
+        function handleData(data, status, jqXHR) {
+            gameData = data;
+            playerName = data.one.playerName;
+            statusbar(data.status, data.message);
+        }
+
+        function createGame() {
+            $.ajax({
+                type: "PUT",
+                url: 'http://localhost:8080/memorygame?pairCount=5&playerOne=Manja&playerTwo=Ana',
+                contentType: "application/json; charset=utf-8",
+                crossDomain: true,
+                dataType: "json",
+                success: initData,
+
+                error: function (jqXHR, status) {
+                    console.log("error on init")
+                }
+            });
+        }
+
+
+        function initData(data, status, jqXHR) {
+            gameID = data;
+            $.ajax({
+                type: "GET",
+                url: 'http://localhost:8080/memorygame/' + gameID,
+                contentType: "application/json; charset=utf-8",
+                crossDomain: true,
+                dataType: "json",
+                success: handleData,
+
+                error: function (jqXHR, status) {
+                    console.log("error on init")
+                }
+            });
+        }
+
+        createGame();
+
+
         $(function () {
             $("#memory-game").memoryGame({
+
+                onPairDisclosed: function (info) {
+                    $.ajax({
+                        type: "POST",
+                        url: 'http://localhost:8080/memorygame/' + gameID + '?playerName=' + playerName,
+                        data: JSON.stringify(gameData),
+                        contentType: "application/json; charset=utf-8",
+                        crossDomain: true,
+                        dataType: "json",
+                        success: function (data, status, jqXHR) {
+                            statusbar(data.status, data.message)
+                            gameData = data;
+                            playerName = data.one.playerName
+                        },
+
+                        error: function (jqXHR, status) {
+                            statusbar('error', data.message)
+                        }
+                    })
+                },
+
+
                 cards: [
                     {
                         imageUrl: 'example-images/ana.jpg',
@@ -29,7 +114,7 @@
                         imageUrl: 'example-images/manja.jpg',
                         linkUrl: 'http://www.saga.rs',
                         name: 'SAGA'
-                    },
+                    }/*,
                     {
                         imageUrl: 'example-images/milosb.jpg',
                         linkUrl: 'http://en.wikipedia.org/wiki/Iguana',
@@ -70,7 +155,7 @@
                         imageUrl: 'example-images/milosj.jpg',
                         linkUrl: 'http://www.saga.rs',
                         name: 'SAGA'
-                    }
+                    }*/
                 ],
                 cardWidth: 100,
                 cardHeight: 100

@@ -4,7 +4,7 @@ package rs.saga.memorygame.memorygame.dto;
  * @author <a href="mailto:slavisa.avramovic@escriba.de">avramovics</a>
  * @since 2018-06-04
  */
-public class MemoryGameDTO {
+public class MemoryGameDTO extends StatusDTO {
 
     private Integer pairCount;
 

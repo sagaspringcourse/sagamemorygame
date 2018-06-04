@@ -8,7 +8,7 @@ import rs.saga.memorygame.memorygame.dto.MemoryGameDTO;
  * @since 2018-06-04
  */
 public interface IMemoryGameService {
-    MemoryGameDTO createGame(Integer pairCount, String playerOne, String playerTwo);
+    Long createGame(Integer pairCount, String playerOne, String playerTwo);
 
     MemoryGameDTO startGame(@PathVariable Long id);
 

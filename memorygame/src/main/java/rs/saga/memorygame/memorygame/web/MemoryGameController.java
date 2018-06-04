@@ -2,6 +2,7 @@ package rs.saga.memorygame.memorygame.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,6 +19,7 @@ import rs.saga.memorygame.memorygame.service.IMemoryGameService;
  * @author <a href="mailto:slavisa.avramovic@escriba.de">avramovics</a>
  * @since 2018-06-04
  */
+@CrossOrigin
 @RestController
 @RequestMapping(MemoryGameController.MGCONTROLLER)
 public class MemoryGameController {
@@ -33,7 +35,7 @@ public class MemoryGameController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PutMapping
-    public MemoryGameDTO createGame(@RequestParam Integer pairCount, @RequestParam String playerOne, @RequestParam String playerTwo) {
+    public Long createGame(@RequestParam Integer pairCount, @RequestParam String playerOne, @RequestParam String playerTwo) {
         return memoryGameService.createGame(pairCount, playerOne, playerTwo);
     }
 

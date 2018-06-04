@@ -11,13 +11,16 @@ import rs.saga.memorygame.memorygame.dto.MemoryGameDTOBuilder;
 @Service
 public class MemoryGameServiceImpl implements IMemoryGameService {
     @Override
-    public MemoryGameDTO createGame(Integer pairCount, String playerOne, String playerTwo) {
-        return MemoryGameDTOBuilder.getInstance().game();    }
+    public Long createGame(Integer pairCount, String playerOne, String playerTwo) {
+        return 1l;   }
 
     @Override
     public MemoryGameDTO startGame(Long id) {
 
-        return MemoryGameDTOBuilder.getInstance().game();
+        MemoryGameDTO game = MemoryGameDTOBuilder.getInstance().game();
+        game.setStatus("info");
+        game.setMessage("Game started. " + game.getOne().getPlayerName() + " VS. " + game.getTwo().getPlayerName());
+        return game;
     }
 
     @Override
